@@ -7,7 +7,7 @@
 
 % using list praser
 total(L)  ->
-    sum([ (fun({What,N}) -> cost(What)*N end)(X) || X <- L ]).
+    sum([ cost(What)*N || {What,N} <- L ]).
 
 cost(oranges)   -> 5;
 cost(newspaper) -> 8;
