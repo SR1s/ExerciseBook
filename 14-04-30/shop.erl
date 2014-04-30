@@ -2,8 +2,12 @@
 -export([total/1, cost/1, sum/1]).
 
 % new type to calculate total, different from version of 14-04-28
+% total(L)  ->
+%     sum(lists:map(fun({What, N}) -> cost(What) * N end, L)).
+
+% using list praser
 total(L)  ->
-    sum(lists:map(fun({What, N}) -> cost(What) * N end, L)).
+    sum([ (fun({What,N}) -> cost(What)*N end)(X) || X <- L ]).
 
 cost(oranges)   -> 5;
 cost(newspaper) -> 8;
