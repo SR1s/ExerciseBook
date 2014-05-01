@@ -1,5 +1,5 @@
 -module(lib_misc).
--export([qsort/1, pythag/1]).
+-export([qsort/1, pythag/1, perms/1]).
 
 qsort([]) -> [];
 qsort([Pivot|T]) ->
@@ -15,3 +15,6 @@ pythag(N) ->
          A+B+C =< N,
          A*A+B*B =:= C*C
     ].
+
+perms([]) -> [[]];
+perms(L)  -> [[H|T] || H <- L, T <- perms(L--[H]) ].
