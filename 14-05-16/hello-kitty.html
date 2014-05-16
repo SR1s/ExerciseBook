@@ -54,5 +54,47 @@
         });
       </script>
     </pre>
+    <hr/>
+    <h1>4. Iterator</h1>
+    <div ng-controller='search_controller'>
+      Search: <input ng-model='query' />
+      <ul>
+        <li ng-repeat='phone in phones | filter: query'>
+          {{ phone.name }}
+          <p>{{ phone.snippet }}</p>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      function search_controller($scope){
+        $scope.phones = [
+          { 'name': 'Nexus S', 'snippet': 'Fast just got faster' },
+          { 'name': 'Motorola Xoom', 'snippet': 'with wifi' },
+          { 'name': 'Motorala Xoom no wifi', 'snippet': 'no wifi' },
+        ];
+        $scope.Hello = 'Hello Kitty!';
+      }
+    </script>
+    <h2>Test!</h2>
+    <pre>
+      <script type="text/javascript">
+        describe('angularjs', function(){
+          describe('search_controller', function(){
+            beforeEach(function(){
+              browser().navigateTo('../../app/index.html');
+              it('sholud filter the phone list as user types into the search box', function(){
+                expect(repeater('.phones li').count()).toBe(3);
+
+                input('query').enter('nexus');
+                expect(repeater('.phones li').count()).toBe(1);
+
+                input('query').enter('motorola');
+                expect(repeater('.phones li').count()).toBe(2);
+              });
+            });
+          });
+        });
+      </script>
+    </pre>
   </body>
 </html>
