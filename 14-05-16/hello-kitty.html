@@ -7,9 +7,52 @@
     <h1>1. Hello Kitty</h1>
     Hello {{ 'Kitty' }}!
     <hr/>
-    <h2>2. Data Binding</h2>
+    <h1>2. Data Binding</h1>
     Name:<input type='text' ng-model='yourname' placeholder='Kitty'/>
     <br/>
     Hello {{ yourname || 'Kitty' }}
+    <hr/>
+    <h1>3. Controller and Template</h1>
+    <div ng-controller='phone_list_controller'>
+      Greeting: {{ Hello }}
+      Total number of phones: {{ phones.length }}
+      <ul>
+        <li ng-repeat='phone in phones'>
+          {{ phone.name }}
+          <p>{{ phone.snippet }}</p>
+        </li>
+      </ul>
+      <ul>
+        <li ng-repeat='i in [0, 1, 2, 3, 4, 5, 6, 7]'>
+          I is: {{ i }}
+          <br/>
+          I+1 is: {{ i+1 }}
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      function phone_list_controller($scope){
+        $scope.phones = [
+          { 'name': 'Nexus S', 'snippet': 'Fast just got faster' },
+          { 'name': 'Motorola Xoom', 'snippet': 'with wifi' },
+          { 'name': 'Motorala Xoom no wifi', 'snippet': 'no wifi' },
+        ];
+        $scope.Hello = 'Hello Kitty!';
+      }
+    </script>
+    <h2>Test!</h2>
+    <pre>
+      <script type="text/javascript">
+        describe('phone Controller', function(){
+          describe('phone_list_controller', function(){
+            it('should create "phones" model with 3 phones', function(){
+              var scope = {}
+              crtl = new phone_list_controller(scope);
+              expect(scope.phones.length).toBe(3);
+            });
+          });
+        });
+      </script>
+    </pre>
   </body>
 </html>
