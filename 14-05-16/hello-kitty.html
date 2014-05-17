@@ -58,8 +58,18 @@
     <h1>4. Iterator</h1>
     <div ng-controller='search_controller'>
       Search: <input ng-model='query' />
+      <!-- 5. order by -->
+      Order By:
+      <select ng-model='orderby'>
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+      <br/>
+      You are seaching for: {{ query || 'none' }}
+      <br>
+      Order by: {{ orderby }}
       <ul>
-        <li ng-repeat='phone in phones | filter: query'>
+        <li ng-repeat='phone in phones | filter: query | orderBy: orderby'>
           {{ phone.name }}
           <p>{{ phone.snippet }}</p>
         </li>
@@ -73,6 +83,8 @@
           { 'name': 'Motorala Xoom no wifi', 'snippet': 'no wifi' },
         ];
         $scope.Hello = 'Hello Kitty!';
+        // order
+        $scope.orderby = 'age';
       }
     </script>
     <h2>Test!</h2>
@@ -96,5 +108,26 @@
         });
       </script>
     </pre>
+    <pre>
+      <script type="text/javascript">
+        // 5 -->
+        describe('angularjs', function(){
+          describe('search_controller', function(){
+            beforeEach(function(){
+              browser().navigateTo('../../app/index.html');
+              it('sholud be possible to control phone order via the dropdown select box', function(){
+                input('query').enter('tablet');
+                expect(repeater('.phones li', 'Phone List').column('phone.name')).toEqual(['Motorola XOOM\u2122 with wifi', 'Motorola XOOM\u2122']);
+
+
+                select('orderby').option('Alphabetical');
+                expect(repeater('.phones li', 'Phone List').column('phone.name')).toEqual(['Motorola XOOM\u2122', 'Motorola\u2122 with wifi']);
+              });
+            });
+          });
+        });
+      </script>
+    </pre>
+    <h1>6. XmlHttpRequest</h1>
   </body>
 </html>
