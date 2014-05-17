@@ -136,13 +136,37 @@
           <p>{{ phone.snippet }}</p>
         </li>
       </ul>
+      {{ phones | json }}
     </div>
     <script type="text/javascript">
     function xhr_controller($scope, $http){
       $http.get('./phones_data.json').success(function(data){
-        $scope.phones = data;
+        $scope.phones = data.splice(0, 2);
       });
     }
     </script>
+    <pre>
+      <script type="text/javascript">
+        describe('Phone controllers', function(){
+          describe('xhr_controller', function(){
+            var scope, ctrl, $httpBackend;
+
+            beforeEach(inject(function(_$httpBackend_, $rootScope, $controller){
+              $httpBackend = _$httpBackend_;
+              $httpBackend.expectGET('./phones_data.json').respond(data);
+              scope = $rootScope.$new();
+              ctrl = $controller(xhr_controller, {$scope: scope});
+            }));
+
+            it('should create "phones" model with 3 phones fetched from xhr', 
+              function(){
+                expect(scope.phones).toBeUndefined();
+                $httpBackend.flush();
+                expect(scope.phones).toEqual(data);
+              });
+          });
+        });
+      </script>
+    </pre>
   </body>
 </html>
