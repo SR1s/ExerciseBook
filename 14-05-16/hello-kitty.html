@@ -168,5 +168,30 @@
         });
       </script>
     </pre>
+    <hr/>
+    <h1>7. Image on data</h1>
+    <div ng-controller='image_controller'>
+      <ul>
+        <li ng-repeat='phone in phones | filter: query | orderBy: orderby'>
+          {{ phone.name }}
+          <p>{{ phone.snippet }}</p>
+          <img ng-src='{{ phone.imageUrl }}' width='200px' />
+        </li>
+    </div>
+    <script type="text/javascript">
+      function image_controller($scope){
+        $scope.phones = [
+          { 'name': 'Nexus S', 
+            'snippet': 'Fast just got faster',
+            'imageUrl': 'http://www.blogcdn.com/www.engadget.com/media/2010/12/nexuss60037-1292027060.jpg' },
+          { 'name': 'Motorola Xoom', 
+            'snippet': 'with wifi',
+            'imageUrl': 'http://designbypixel.ca/wp-content/uploads/2011/05/Verizon-Motorola-Xoom-tablet.jpg' },
+          { 'name': 'Motorala Xoom no wifi', 
+            'snippet': 'no wifi',
+            'imageUrl': 'http://cdn-static.zdnet.com/i/story/61/18/022649/motorola-xoom-tablet-swipe.jpg' },
+        ];
+      }
+    </script>
   </body>
 </html>
