@@ -129,5 +129,20 @@
       </script>
     </pre>
     <h1>6. XmlHttpRequest</h1>
+    <div ng-controller='xhr_controller'>
+      <ul>
+        <li ng-repeat='phone in phones | filter: query | orderBy: orderby'>
+          {{ phone.name }}
+          <p>{{ phone.snippet }}</p>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+    function xhr_controller($scope, $http){
+      $http.get('./phones_data.json').success(function(data){
+        $scope.phones = data;
+      });
+    }
+    </script>
   </body>
 </html>
